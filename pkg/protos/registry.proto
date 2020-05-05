@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package noptics;
+option go_package = "nproto";
+
+message File {
+    string name = 2;
+    bytes data = 3;
+}
+
+message SaveFilesRequest {
+    string clusterID = 1;
+    string channel = 2;
+    repeated File files = 3;
+}
+
+message SaveFilesReply {
+}
+
+message GetFilesRequest {
+    string clusterID = 1;
+    string channel = 2;
+}
+
+message GetFilesReply {
+    repeated File files = 1;
+}
+
+message SetMessageRequest {
+    string clusterID = 1;
+    string channel = 2;
+    string name = 3;
+}
+
+message SetMessageReply {
+}
+
+message GetMessageRequest {
+    string clusterID = 1;
+    string channel = 2;
+}
+
+message GetMessageReply {
+    string name = 1;
+}
+
+message GetChannelDataRequest {
+    string clusterID = 1;
+    string channel = 2;
+}
+
+message GetChannelDataReply {
+    string clusterID = 1;
+    string channel = 3;
+    string message = 4;
+    repeated File files = 5;
+}
+
+message SetChannelDataRequest {
+    string clusterID = 1;
+    string channel = 3;
+    string message = 4;
+    repeated File files = 5;
+}
+
+message SetChannelDataReply {
+}
+
+message GetChannelsRequest {
+    string clusterID = 1;
+}
+
+message GetChannelsReply {
+    repeated string Channels = 1;
+}
+
+message Cluster {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated string servers = 4;
+}
+
+message SaveClusterRequest {
+    Cluster cluster = 2;
+}
+
+message SaveClusterReply {
+    string id = 1;
+}
+
+message GetClusterRequest {
+    string id = 1;
+}
+
+message GetClusterReply {
+    Cluster cluster = 1;
+}
+
+message GetClustersRequest {
+}
+
+message GetClustersReply {
+    repeated Cluster clusters = 1;
+}
+
+service ProtoRegistry {
+    rpc SaveFiles(SaveFilesRequest) returns(SaveFilesReply) {};
+    rpc GetFiles(GetFilesRequest) returns(GetFilesReply) {};
+    rpc SetMessage(SetMessageRequest) returns(SetMessageReply) {};
+    rpc GetMessage(GetMessageRequest) returns(GetMessageReply) {};
+    rpc GetChannelData(GetChannelDataRequest) returns(GetChannelDataReply) {};
+    rpc SetChannelData(SetChannelDataRequest) returns(SetChannelDataReply) {};
+    rpc GetChannels(GetChannelsRequest) returns (GetChannelsReply) {};
+    rpc SaveCluster(SaveClusterRequest) returns(SaveClusterReply) {};
+    rpc GetCluster(GetClusterRequest) returns(GetClusterReply) {};
+    rpc GetClusters(GetClustersRequest) returns(GetClustersReply) {};
+}
